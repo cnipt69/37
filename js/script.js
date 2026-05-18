@@ -1,6 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tabcontent');
-    const items = document.querySelectorAll('.tabheader__item');
+const tabs = document.querySelectorAll('.tabcontent');
+const items = document.querySelectorAll('.tabheader__item');
 
     if (tabs[3]) {
         const imgInFourthTab = tabs[3].querySelector('img');
@@ -44,4 +43,3 @@ document.addEventListener('DOMContentLoaded', () => {
     items[3].addEventListener('click', () => {
         activateTab(3);
     });
-});
