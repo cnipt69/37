@@ -1,13 +1,6 @@
 const tabs = document.querySelectorAll('.tabcontent');
 const items = document.querySelectorAll('.tabheader__item');
 
-if (tabs[3]) {
-    const img = tabs[3].querySelector('img');
-    if (img) {
-        img.src = 'img/tabs/hamburger.jpg';
-        img.alt = 'hamburger';
-    }
-}
 function resetTabs() {
     tabs.forEach(tab => tab.style.display = 'none');
     items.forEach(item => item.classList.remove('tabheader__item_active'));
