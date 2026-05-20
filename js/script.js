@@ -1,35 +1,48 @@
-const tabs = document.querySelectorAll('.tabcontent');
-const items = document.querySelectorAll('.tabheader__item');
+const allSlides = document.querySelectorAll(".offer__slide");
+const btnPrev = document.querySelector(".offer__slider-prev");
+const btnNext = document.querySelector(".offer__slider-next");
+const currentCounter = document.querySelector("#current");
+const totalCounter = document.querySelector("#total");
 
-function resetTabs() {
-    tabs.forEach(tab => tab.style.display = 'none');
-    items.forEach(item => item.classList.remove('tabheader__item_active'));
+let activeSlide = 0;
+
+if (allSlides.length < 10) {
+    totalCounter.textContent = "0" + allSlides.length;
+} else {
+    totalCounter.textContent = allSlides.length;
 }
 
-resetTabs();
-tabs[0].style.display = 'block';
-items[0].classList.add('tabheader__item_active');
+function moveSlider() {
+    allSlides.forEach(item => {
+        item.style.display = 'none';
+    });
+    
+    if (activeSlide >= allSlides.length) {
+        activeSlide = 0; 
+    }
+    if (activeSlide < 0) {
+        activeSlide = allSlides.length - 1; 
+    }
 
-items[0].onclick = function() {
-    resetTabs();
-    tabs[0].style.display = 'block';
-    items[0].classList.add('tabheader__item_active');
+    allSlides[activeSlide].style.display = 'block';
+
+    let realNumber = activeSlide + 1;
+    
+    if (realNumber < 10) {
+        currentCounter.textContent = "0" + realNumber;
+    } else {
+        currentCounter.textContent = realNumber;
+    }
+}
+
+moveSlider();
+
+btnNext.onclick = function() {
+    activeSlide++; 
+    moveSlider(); 
 };
 
-items[1].onclick = function() {
-    resetTabs();
-    tabs[1].style.display = 'block';
-    items[1].classList.add('tabheader__item_active');
-};
-
-items[2].onclick = function() {
-    resetTabs();
-    tabs[2].style.display = 'block';
-    items[2].classList.add('tabheader__item_active');
-};
-
-items[3].onclick = function() {
-    resetTabs();
-    tabs[3].style.display = 'block';
-    items[3].classList.add('tabheader__item_active');
+btnPrev.onclick = function() {
+    activeSlide--; 
+    moveSlider(); 
 };
