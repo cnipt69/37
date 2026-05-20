@@ -6,11 +6,7 @@ const totalCounter = document.querySelector("#total");
 
 let activeSlide = 0;
 
-if (allSlides.length < 10) {
-    totalCounter.textContent = "0" + allSlides.length;
-} else {
-    totalCounter.textContent = allSlides.length;
-}
+totalCounter.textContent = ("0" + allSlides.length).slice(-2);
 
 function moveSlider() {
     allSlides.forEach(item => {
@@ -27,12 +23,7 @@ function moveSlider() {
     allSlides[activeSlide].style.display = 'block';
 
     let realNumber = activeSlide + 1;
-    
-    if (realNumber < 10) {
-        currentCounter.textContent = "0" + realNumber;
-    } else {
-        currentCounter.textContent = realNumber;
-    }
+    currentCounter.textContent = ("0" + realNumber);
 }
 
 moveSlider();
