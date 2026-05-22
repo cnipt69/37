@@ -1,39 +1,69 @@
-const allSlides = document.querySelectorAll(".offer__slide");
-const btnPrev = document.querySelector(".offer__slider-prev");
-const btnNext = document.querySelector(".offer__slider-next");
-const currentCounter = document.querySelector("#current");
-const totalCounter = document.querySelector("#total");
+const genderButtons = document.querySelectorAll('#gender .calculating__choose-item');
+const activityButtons = document.querySelectorAll('.calculating__choose_big .calculating__choose-item');
 
-let activeSlide = 0;
+const heightInput = document.getElementById('height');
+const weightInput = document.getElementById('weight');
+const ageInput = document.getElementById('age');
+const result = document.querySelector('.calculating__result span');
 
-totalCounter.textContent = ("0" + allSlides.length).slice(-2);
+let selectedGender = 'female';
+let selectedActivity = 1.375;
 
-function moveSlider() {
-    allSlides.forEach(item => {
-        item.style.display = 'none';
+
+genderButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        genderButtons.forEach(btn => btn.classList.remove('calculating__choose-item_active'));
+        button.classList.add('calculating__choose-item_active');
+
+        if (button.textContent.trim() === 'Женщина') {
+            selectedGender = 'female';
+        } else {
+            selectedGender = 'male';
+        }
+
+        calculateCalories();
     });
-    
-    if (activeSlide >= allSlides.length) {
-        activeSlide = 0; 
-    }
-    if (activeSlide < 0) {
-        activeSlide = allSlides.length - 1; 
+});
+
+
+activityButtons.forEach(button => {
+    button.addEventListener('click', () => {
+
+        activityButtons.forEach(btn => btn.classList.remove('calculating__choose-item_active'));
+        button.classList.add('calculating__choose-item_active');
+
+        selectedActivity = Number(button.dataset.activity);
+
+        calculateCalories();
+    });
+});
+
+
+function calculateCalories() {
+    const height = Number(heightInput.value);
+    const weight = Number(weightInput.value);
+    const age = Number(ageInput.value);
+
+    if (!height || !weight || !age) {
+        result.textContent = '0';
+        return;
     }
 
-    allSlides[activeSlide].style.display = 'block';
+    let calories;
 
-    let realNumber = activeSlide + 1;
-    currentCounter.textContent = ("0" + realNumber);
+    if (selectedGender === 'female') {
+        calories = 655.1 + (9.563 * weight) + (1.85 * height) - (4.676 * age);
+    } else {
+        calories = 66.5 + (13.75 * weight) + (5.003 * height) - (6.775 * age);
+    }
+
+    calories = calories * selectedActivity;
+
+    result.textContent = Math.round(calories);
 }
 
-moveSlider();
+calculateCalories();
 
-btnNext.onclick = function() {
-    activeSlide++; 
-    moveSlider(); 
-};
-
-btnPrev.onclick = function() {
-    activeSlide--; 
-    moveSlider(); 
-};
+heightInput.addEventListener('input', calculateCalories);
+weightInput.addEventListener('input', calculateCalories);
+ageInput.addEventListener('input', calculateCalories);
