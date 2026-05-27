@@ -15,7 +15,7 @@ genderButtons.forEach(button => {
         genderButtons.forEach(btn => btn.classList.remove('calculating__choose-item_active'));
         button.classList.add('calculating__choose-item_active');
 
-        if (button.textContent.trim() === 'Женщина') {
+        if (button.textContent === 'Женщина') {
             selectedGender = 'female';
         } else {
             selectedGender = 'male';
